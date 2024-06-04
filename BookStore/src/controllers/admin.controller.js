@@ -8,9 +8,9 @@ import logger from '../config/logger';
  * @param {object} res - response object
  * @param {Function} next
  */
-export const newUser = async (req, res, next) => {
+export const newAdmin = async (req, res, next) => {
   try {
-    req.body.role = `User`;
+    req.body.role = `admin`;
     const data = await UserService.newUser(req.body);
     logger.info('User created successfully');
     res.status(HttpStatus.CREATED).json({
