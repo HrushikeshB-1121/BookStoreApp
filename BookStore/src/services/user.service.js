@@ -1,15 +1,22 @@
 import User from '../models/user.model';
 import bcrypt from 'bcrypt';
+import sendmail from '../utils/email'
+import jwt from 'jsonwebtoken';
+dotenv.config();
+const key = process.env.SECRET_KEY;
 
 //create new user
 export const newUser = async (body) => {
-  const email = body.email.toLowerCase();
-  const userExists = await User.findOne({ email: email });
+  body.email = body.email.toLowerCase();
+  const userExists = await User.findOne({ email: body.email });
   if (userExists) {
     throw new Error('User already exists');
   } else {
     body.password = await bcrypt.hash(body.password, 10);
-    const data = await User.create(body);
+    const token = jwt.sign( body, key, { expiresIn: '10m' });
+    const result= await sendmail(user.email,token)
+    return {token ,result };
+    //const data = await User.create(body);
     return data;
   }
 };

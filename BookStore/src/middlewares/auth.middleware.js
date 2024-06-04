@@ -1,6 +1,16 @@
 import HttpStatus from 'http-status-codes';
 import jwt from 'jsonwebtoken';
 
+
+export const userRole = async(req, res, next) => {
+  req.body.role = `User`;
+  next();
+}
+
+export const adminRole = async(req, res, next) => {
+  req.body.role = `admin`;
+  next();
+}
 /**
  * Middleware to authenticate if user has a valid Authorization token
  * Authorization: Bearer <token>

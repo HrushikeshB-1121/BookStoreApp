@@ -10,13 +10,12 @@ import logger from '../config/logger';
  */
 export const newUser = async (req, res, next) => {
   try {
-    req.body.role = `User`;
     const data = await UserService.newUser(req.body);
-    logger.info('User created successfully');
+    logger.info('Mail sent successfully');
     res.status(HttpStatus.CREATED).json({
       code: HttpStatus.CREATED,
       data: data,
-      message: 'User created successfully'
+      message: 'Mail sent successfully'
     });
   } catch (error) {
     logger.error(`error while creating user`)
