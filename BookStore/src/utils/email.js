@@ -37,11 +37,11 @@ async function sendEmail(email, token) {
     const mailOptions = {
         from: mail,
         to: email,
-        subject: "Password Reset",
-        html: `<h1>Password Reset</h1>
-      <p>Go to the link to proceed with your password reset</p>
+        subject: "Verify email",
+        html: `<h1>verify email</h1>
+      <p>Go to the link to verify email</p>
       <p>the token is:${token} </p>
-    //   <a href="http://localhost:3000/api/v1/users/resetPassword">Reset Password</a>
+    //   <a href="http://localhost:3000/api/v1/users/verification">verify mail</a>
       `,
     };
 

@@ -26,6 +26,25 @@ export const newUser = async (req, res, next) => {
   }
 };
 
+export const registerUser = async (req, res, next) => {
+  try {
+    const data = await UserService.registerUser(req.data);
+    logger.info('User data saved successfully');
+    res.status(HttpStatus.CREATED).json({
+      code: HttpStatus.CREATED,
+      data: data,
+      message: 'User data saved successfully'
+    });
+  } catch (error) {
+    logger.error(`error while creating user`)
+    res.status(HttpStatus.BAD_REQUEST).json({
+      code: HttpStatus.BAD_REQUEST,
+      message: error.message
+    });
+  }
+};
+
+
 /**
  * Controller to get all users available
  * @param  {object} req - request object
