@@ -8,7 +8,7 @@ import logger from '../config/logger';
  * @param {object} res - response object
  * @param {Function} next
  */
-export const newUser = async (req, res, next) => {
+export const newUser = async (req, res) => {
   try {
     const data = await UserService.newUser(req.body);
     logger.info('Mail sent successfully');
@@ -26,7 +26,7 @@ export const newUser = async (req, res, next) => {
   }
 };
 
-export const registerUser = async (req, res, next) => {
+export const registerUser = async (req, res) => {
   try {
     const data = await UserService.registerUser(req.data);
     logger.info('User data saved successfully');

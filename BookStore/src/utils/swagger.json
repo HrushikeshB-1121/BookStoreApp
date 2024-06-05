@@ -1,0 +1,84 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "BookStore App ",
+      "description": "User and Admin can register and login"
+    },
+    "servers": [
+        {
+          "url": "http://localhost:3000/api/v1/bookstore_users/"
+        }
+      ],
+      "tags": [
+        {
+          "name": "BookStore using express CLI",
+          "description": "This is for managing BookStore"
+        }
+      ],
+      "paths": {
+        "/admin/registration": {
+          "post": {
+            "tags": [
+              "Admin"
+            ],
+            "description": "Register admin...",
+            "requestBody": {
+              "description": "Register admin",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              },
+              "required": false
+            },
+            "responses": {
+              "201": {
+                "description": "Mail sent successfully",
+                "content": {}
+              },
+              "500": {
+                "description": "Internal server error",
+                "content": {}
+              }
+            },
+            "x-codegen-request-body-name": "Register new name"
+          }
+        },
+        "/verification": {
+          "post": {
+            "tags": [
+              "Verify token"
+            ],
+            "description": "verify token...",
+            "requestBody": {
+              "description": "verify token",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/verify"
+                  }
+                }
+              },
+              "required": false
+            },
+            "responses": {
+              "201": {
+                "description": "sucessfully verifyed and stored data",
+                "content": {}
+              },
+              "404": {
+                "description": "token verification failed",
+                "content": {}
+              },
+              "500": {
+                "description": "Internal server error",
+                "content": {}
+              }
+            },
+            "x-codegen-request-body-name": "verify token"
+          }
+        }
+}
+}

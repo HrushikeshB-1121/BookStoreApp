@@ -15,6 +15,6 @@ router.post('/admin/registration', newUserValidator, adminRole, UserController.n
 router.post('/verification', userAuth, UserController.registerUser);
 
 /* User */
-router.post('/registration', newUserValidator, userRole, UserController.registerUser);
+router.post('/registration', newUserValidator, userRole, UserController.newUser);
 // router.post('/login', loginValidator, UserController.login);
 export default router;
