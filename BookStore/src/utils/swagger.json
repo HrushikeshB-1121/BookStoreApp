@@ -6,7 +6,7 @@
     },
     "servers": [
         {
-          "url": "http://localhost:3000/api/v1/bookstore_users"
+          "url": "http://localhost:3000/api/v1"
         }
       ],
       "tags": [
@@ -16,7 +16,65 @@
         }
       ],
       "paths": {
-        "/admin/registration": {
+        "/bookstore_users": {
+          "post": {
+            "tags": [
+              "User"
+            ],
+            "description": "Register user...",
+            "requestBody": {
+              "description": "Register user",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              },
+              "required": false
+            },
+            "responses": {
+              "201": {
+                "description": "Mail sent successfully",
+                "content": {}
+              },
+              "500": {
+                "description": "Internal server error",
+                "content": {}
+              }
+            },
+            "x-codegen-request-body-name": "Register new name"
+          }
+        },
+        "/bookstore_users/verification": {
+          "post": {
+            "tags": [
+              "User"
+            ],
+            "description": "verify token...",
+           
+            "responses": {
+              "201": {
+                "description": "sucessfully verifyed and stored data",
+                "content": {}
+              },
+              "404": {
+                "description": "token verification failed",
+                "content": {}
+              },
+              "500": {
+                "description": "Internal server error",
+                "content": {}
+              }
+            },
+            "security": [
+              {
+                "JWT": []
+              }
+            ]
+          }
+        },
+        "/bookstore_users/admin": {
           "post": {
             "tags": [
               "Admin"
@@ -44,34 +102,6 @@
               }
             },
             "x-codegen-request-body-name": "Register new name"
-          }
-        },
-        "/verification": {
-          "post": {
-            "tags": [
-              "Verify token"
-            ],
-            "description": "verify token...",
-           
-            "responses": {
-              "201": {
-                "description": "sucessfully verifyed and stored data",
-                "content": {}
-              },
-              "404": {
-                "description": "token verification failed",
-                "content": {}
-              },
-              "500": {
-                "description": "Internal server error",
-                "content": {}
-              }
-            },
-            "security": [
-              {
-                "JWT": []
-              }
-            ]
           }
         }
 },

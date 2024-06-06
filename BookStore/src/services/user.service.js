@@ -3,9 +3,10 @@ import bcrypt from 'bcrypt';
 import sendmail from '../utils/email'
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { log } from 'winston';
 dotenv.config();
+import { log } from 'winston';
 const key = process.env.SECRET_KEY;
+import { userRegisterCache,getUserCredentials } from '../utils/redis';
 
 //create new user
 export const newUser = async (body) => {
@@ -15,7 +16,8 @@ export const newUser = async (body) => {
     throw new Error('User already exists');
   } else {
     body.password = await bcrypt.hash(body.password, 10);
-    const token = jwt.sign( { data :body}, key, { expiresIn: '10m' });
+    userRegisterCache(body);
+    const token = jwt.sign( { data :body.email}, key, { expiresIn: '10m' });
     const result= await sendmail(body.email,token)
     return {token ,result };
   }
@@ -23,10 +25,21 @@ export const newUser = async (body) => {
 
 //register user
 export const registerUser = async (body) => {
-    const data = await User.create(body);
-    return data;
+  const userDetails = await getUserCredentials(body);
+  const data = await User.create(userDetails);
+  return data;
 };
 
+
+export const login = async (body) => {
+  body.email = body.email.toLowerCase();
+  const user = await User.findOne({email: body.email});
+  if (!user || !(await bcrypt.compare(body.password, user.password))) {
+    throw new Error('Invalid email or password');
+  }
+  const token = jwt.sign({ userId: user._id }, key, { expiresIn: '1h' });
+  return { user, token };
+};
 
 
 //get all users
