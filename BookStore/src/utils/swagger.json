@@ -6,7 +6,7 @@
     },
     "servers": [
         {
-          "url": "http://localhost:3000/api/v1/bookstore_users/"
+          "url": "http://localhost:3000/api/v1/bookstore_users"
         }
       ],
       "tags": [
@@ -52,17 +52,7 @@
               "Verify token"
             ],
             "description": "verify token...",
-            "requestBody": {
-              "description": "verify token",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/verify"
-                  }
-                }
-              },
-              "required": false
-            },
+           
             "responses": {
               "201": {
                 "description": "sucessfully verifyed and stored data",
@@ -77,8 +67,51 @@
                 "content": {}
               }
             },
-            "x-codegen-request-body-name": "verify token"
+            "security": [
+              {
+                "JWT": []
+              }
+            ]
           }
         }
-}
+},
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          }
+        }
+      },
+      "login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "JWT": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  }
 }

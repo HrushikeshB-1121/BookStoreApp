@@ -14,7 +14,7 @@ export const newUser = async (req, res) => {
     logger.info('Mail sent successfully');
     res.status(HttpStatus.CREATED).json({
       code: HttpStatus.CREATED,
-      data: data,
+      token: data.token,
       message: 'Mail sent successfully'
     });
   } catch (error) {
@@ -32,7 +32,7 @@ export const registerUser = async (req, res) => {
     logger.info('User data saved successfully');
     res.status(HttpStatus.CREATED).json({
       code: HttpStatus.CREATED,
-      data: data,
+      data: data.email,
       message: 'User data saved successfully'
     });
   } catch (error) {

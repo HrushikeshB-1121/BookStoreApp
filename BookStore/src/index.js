@@ -13,7 +13,8 @@ import {
   notFound
 } from './middlewares/error.middleware';
 import logger, { logStream } from './config/logger';
-
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./utils/swagger.json');
 import morgan from 'morgan';
 
 const app = express();
@@ -26,7 +27,7 @@ app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan('combined', { stream: logStream }));
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 database();
 
 app.use(`/api/${api_version}`, routes());
