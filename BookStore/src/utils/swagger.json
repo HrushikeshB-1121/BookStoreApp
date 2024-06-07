@@ -52,7 +52,6 @@
               "User"
             ],
             "description": "verify token...",
-           
             "responses": {
               "201": {
                 "description": "sucessfully verifyed and stored data",
@@ -102,6 +101,40 @@
               }
             },
             "x-codegen-request-body-name": "Register new name"
+          }
+        },
+        "/bookstore_users/login":{
+          "post": {
+            "tags": [
+              "User"
+            ],
+            "description": "User login",
+            "requestBody": {
+              "description": "User login",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/login"
+                  }
+                }
+              },
+              "required": false
+            },
+            "responses": {
+              "201": {
+                "description": "sucessfully logged in",
+                "content": {}
+              },
+              "404": {
+                "description": "email or password doesn't match",
+                "content": {}
+              },
+              "500": {
+                "description": "Internal server error",
+                "content": {}
+              }
+            },
+            "x-codegen-request-body-name": "login user"
           }
         }
 },

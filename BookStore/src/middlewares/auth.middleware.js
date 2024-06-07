@@ -17,16 +17,29 @@ export const userAuth = async (req, res, next) => {
   try {
     let bearerToken = req.header('Authorization');
     if (!bearerToken)
-      throw {
-        code: HttpStatus.BAD_REQUEST,
-        message: 'Authorization token is required'
-      };
+    throw {
+      code: HttpStatus.BAD_REQUEST,
+      message: 'Authorization token is required'
+    };
     bearerToken = bearerToken.split(' ')[1];
-    const {data}  = await jwt.verify(bearerToken, key);
-    req.data = data;
+    const {userId,role}  = await jwt.verify(bearerToken, key);
+    req.data = userId;
+    req.userRole = role;
+    console.log(userId);
+    console.log(role);
     next();
   } catch (error) {
     next(error);
   }
 };
 
+export const checkRole = async (req, res, next) => {
+  if (req.userRole === 'admin') {
+    next();
+  } else {
+    res.status(HttpStatus.UNAUTHORIZED).json({
+      success: false,
+      message: `${error}`
+    })
+  }
+}
