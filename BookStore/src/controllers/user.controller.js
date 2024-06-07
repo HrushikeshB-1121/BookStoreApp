@@ -59,7 +59,7 @@ export const login= async (req, res) => {
         success: true,
         firstName: data.user.firstName,
         email: data.user.email,
-        token: data.token
+        loginToken: data.token
       },
     });
 

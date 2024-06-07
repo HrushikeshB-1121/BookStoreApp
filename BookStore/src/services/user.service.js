@@ -5,7 +5,10 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 import { log } from 'winston';
+
 const key = process.env.SECRET_KEY;
+const loginkey = process.env.LOGIN_SECRET_KEY;
+
 import { userRegisterCache,getUserCredentials } from '../utils/redis';
 
 //create new user
@@ -17,7 +20,7 @@ export const newUser = async (body) => {
   } else {
     body.password = await bcrypt.hash(body.password, 10);
     userRegisterCache(body);
-    const token = jwt.sign( { data :body.email}, key, { expiresIn: '10m' });
+    const token = jwt.sign( { userId :body.email,role: body.role}, key, { expiresIn: '10m' });
     const result= await sendmail(body.email,token)
     return {token ,result };
   }
@@ -37,7 +40,7 @@ export const login = async (body) => {
   if (!user || !(await bcrypt.compare(body.password, user.password))) {
     throw new Error('Invalid email or password');
   }
-  const token = jwt.sign({ userId: user._id , role: user.role}, key, { expiresIn: '1h' });
+  const token = jwt.sign({ userId: user._id , role: user.role}, loginkey, { expiresIn: '1h' });
   return { user, token };
 };
 

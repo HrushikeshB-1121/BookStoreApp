@@ -13,9 +13,9 @@ const routes = () => {
   router.get('/', (req, res) => {
     res.json('Welcome');
   });
-  router.use('/bookstore_users', userRoute);
+  router.use('/users', userRoute);
 
-  router.use('/bookstore_books',bookRoute)
+  router.use('/books',bookRoute)
 
   return router;
 };
