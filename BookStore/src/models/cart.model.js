@@ -6,9 +6,6 @@ const cartSchema = new Schema({
     },
     books: [
         {
-            bookId: {
-                type: String
-            },
             bookName: {
                 type: String
             },
