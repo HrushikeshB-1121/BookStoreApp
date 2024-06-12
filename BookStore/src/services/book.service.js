@@ -13,7 +13,9 @@ export const getBookById = async (_id) => {
 
 
 export const deleteBookById = async (_id)=>{
-    await Book.findByIdAndDelete(_id);
+    const data = await Book.findByIdAndDelete(_id);
+    if(data===null)
+        throw new Error('book not found')
     return '';
 }
 
@@ -27,5 +29,7 @@ export const updateBookById = async (_id, body)=>{
             new:true
         }
     );
+    if(data===null)
+        throw new Error('book not found')
     return data;
 }

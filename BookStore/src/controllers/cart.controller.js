@@ -3,16 +3,14 @@ import * as CartService from '../services/cart.service';
 
 export const getCartDetails = async (req, res) => {
   try {
-    const data = await CartService.getCartDetails(req.userId);
+    const data = await CartService.getDetails(req.userId);
     res.status(HttpStatus.OK).json({
-      code: HttpStatus.OK,
       success: true,
       message: 'Cart fetched successfully',
       data: data
     });
   } catch (error) {
     res.status(HttpStatus.BAD_REQUEST).json({
-      code: HttpStatus.BAD_REQUEST,
       success: false,
       message: `${error}`
     });

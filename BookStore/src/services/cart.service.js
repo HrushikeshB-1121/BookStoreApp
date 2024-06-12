@@ -3,6 +3,9 @@ import Book from '../models/book.model';
 
 export const getCartDetails = async (userId) => {
   const data = await Cart.findOne({ cartBy: userId });
+  if(data===null){
+    throw new Error('Cart not found with this user');
+  }
   return data;
 };
 

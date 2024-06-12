@@ -14,7 +14,6 @@ export const newUser = async (req, res) => {
     logger.info('Mail sent successfully');
     res.status(HttpStatus.CREATED).json({
       success: true,
-      code: HttpStatus.CREATED,
       token: data.token,
       message: 'Mail sent successfully'
     });
@@ -22,7 +21,6 @@ export const newUser = async (req, res) => {
     logger.error(`error while creating user`)
     res.status(HttpStatus.BAD_REQUEST).json({
       success: false,
-      code: HttpStatus.BAD_REQUEST,
       message: error.message
     });
   }
@@ -34,7 +32,6 @@ export const registerUser = async (req, res) => {
     logger.info('User data saved successfully');
     res.status(HttpStatus.CREATED).json({
       success: true,
-      code: HttpStatus.CREATED,
       data: data.email,
       message: 'User data saved successfully'
     });
@@ -42,7 +39,6 @@ export const registerUser = async (req, res) => {
     logger.error(`error while creating user`)
     res.status(HttpStatus.BAD_REQUEST).json({
       success: false,
-      code: HttpStatus.BAD_REQUEST,
       message: error.message
     });
   }
@@ -53,7 +49,6 @@ export const login= async (req, res) => {
     const data = await UserService.login(req.body);
     logger.info('User loggedIn successfully');
     res.status(HttpStatus.OK).json({
-      code: HttpStatus.OK,
       message: 'User loggedIn successfully',
       data: {
         success: true,
@@ -67,7 +62,6 @@ export const login= async (req, res) => {
     logger.error(`User login failed`)
     res.status(HttpStatus.BAD_REQUEST).json({
       success: false,
-      code: HttpStatus.BAD_REQUEST,
       message: error.message
     });
   }
@@ -85,7 +79,6 @@ export const getAllUsers = async (req, res, next) => {
   try {
     const data = await UserService.getAllUsers();
     res.status(HttpStatus.OK).json({
-      code: HttpStatus.OK,
       data: data,
       message: 'All users fetched successfully'
     });
@@ -104,7 +97,6 @@ export const getUser = async (req, res, next) => {
   try {
     const data = await UserService.getUser(req.params._id);
     res.status(HttpStatus.OK).json({
-      code: HttpStatus.OK,
       data: data,
       message: 'User fetched successfully'
     });
@@ -124,7 +116,6 @@ export const updateUser = async (req, res, next) => {
   try {
     const data = await UserService.updateUser(req.params._id, req.body);
     res.status(HttpStatus.ACCEPTED).json({
-      code: HttpStatus.ACCEPTED,
       data: data,
       message: 'User updated successfully'
     });
@@ -143,7 +134,6 @@ export const deleteUser = async (req, res, next) => {
   try {
     await UserService.deleteUser(req.params._id);
     res.status(HttpStatus.OK).json({
-      code: HttpStatus.OK,
       data: [],
       message: 'User deleted successfully'
     });
