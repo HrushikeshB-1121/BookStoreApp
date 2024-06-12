@@ -11,7 +11,7 @@ const router = express.Router();
 router.post('/', newUserValidator, userRole, UserController.newUser);
 
 /* Verify Token */
-router.post('/verif', userAuth, UserController.registerUser);
+router.post('/verification', userAuth, UserController.registerUser);
 
 /* Login */
 router.post('/login', loginValidator, UserController.login);

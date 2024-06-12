@@ -19,7 +19,7 @@ export const userAuth = async (req, res, next) => {
     let bearerToken = req.header('Authorization');
     if (!bearerToken)
     throw {
-      code: HttpStatus.BAD_REQUEST,
+      success: false,
       message: 'Authorization token is required'
     };
     bearerToken = bearerToken.split(' ')[1];
@@ -28,9 +28,8 @@ export const userAuth = async (req, res, next) => {
     next();
   } catch (error) {
     res.status(HttpStatus.BAD_REQUEST).json({
-      code: HttpStatus.BAD_REQUEST,
       success: false,
-      message: `${error}`
+      message:  'Please enter valid token'
     });
   }
 };
@@ -40,7 +39,7 @@ export const userLoginAuth = async (req, res, next) => {
     let bearerToken = req.header('Authorization');
     if (!bearerToken)
     throw {
-      code: HttpStatus.BAD_REQUEST,
+      success: false,
       message: 'Authorization token is required'
     };
     bearerToken = bearerToken.split(' ')[1];
@@ -50,9 +49,8 @@ export const userLoginAuth = async (req, res, next) => {
     next();
   } catch (error) {
     res.status(HttpStatus.BAD_REQUEST).json({
-      code:HttpStatus.BAD_REQUEST,
       success: false,
-      message: `${error}`
+      message: 'Please enter valid token'
     });
   }
 };
@@ -63,7 +61,7 @@ export const checkRole = async (req, res, next) => {
   } else {
     res.status(HttpStatus.UNAUTHORIZED).json({
       success: false,
-      message: `UNAUTHORIZED`
+      message: 'UNAUTHORIZED'
     })
   }
 }

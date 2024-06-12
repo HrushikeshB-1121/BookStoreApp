@@ -29,6 +29,9 @@ export const newUser = async (body) => {
 //register user
 export const registerUser = async (body) => {
   const userDetails = await getUserCredentials(body);
+  if(userDetails===null){
+    throw new Error(`user details not found`);
+  }
   const data = await User.create(userDetails);
   return data;
 };
