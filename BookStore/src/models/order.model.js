@@ -40,6 +40,9 @@ const orderSchema = new Schema({
   orderPlacedDate: {
     type: Date,
     default: Date.now
+  },
+  orderTotal:{
+    type:Number
   }
 });
 

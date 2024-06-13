@@ -11,11 +11,13 @@ export const getOrderDetails = async (_id) => {
       order = await Order.create({
         orderBy: _id,
         books: cart.books,
-        isPurchased: true
+        isPurchased: true,
+        orderTotal: cart.cartTotal
       });
     } else {
       order.books.push(...cart.books);
       order.isPurchased = true;
+      order.orderTotal += cart.cartTotal;
     }
 
     await order.save();
