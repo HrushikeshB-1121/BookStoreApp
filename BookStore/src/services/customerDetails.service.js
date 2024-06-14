@@ -21,7 +21,7 @@ export const addCustomerDetails = async (_id,details) => {
   }
 };
 
-export const getCustomerDetails = async (_id,details) => {
+export const getCustomerDetails = async (_id) => {
   try {
     let data = await CustomerDetails.findOne({ customerId: _id });
     if (!data) {

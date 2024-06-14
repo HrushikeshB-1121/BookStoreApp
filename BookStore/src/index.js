@@ -14,7 +14,7 @@ import {
 } from './middlewares/error.middleware';
 import logger, { logStream } from './config/logger';
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./utils/swagger.json');
+const swaggerDocument = require('./swagger/swagger.json');
 import morgan from 'morgan';
 
 const app = express();

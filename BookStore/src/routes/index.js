@@ -21,13 +21,13 @@ const routes = () => {
 
   router.use('/books',bookRoute);
 
-  router.use('/cart', cartRoute);
+  router.use('/carts', cartRoute);
 
   router.use('/wishlist', wishlistRoute);
 
-  router.use('/order', orderRoute);
+  router.use('/orders', orderRoute);
 
-  router.use('/customer', customerRoute);
+  router.use('/customerDetails', customerRoute);
 
   return router;
 };

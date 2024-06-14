@@ -8,6 +8,9 @@ export const getAllBooks = async () => {
 
 export const getBookById = async (_id) => {
     const data = await Book.findById(_id);
+    if(data==null){
+        throw new Error('book not found')
+    }
     return data;
 }
 

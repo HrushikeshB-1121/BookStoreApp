@@ -6,8 +6,7 @@ export const addCustomerDetails = async (req, res) => {
     const data = await CustomerService.addCustomerDetails(req.userId,req.body);
     res.status(HttpStatus.OK).json({
       success: true,
-      message: 'Customer details fetched successfully',
-      data: data
+      message: 'Customer details added successfully',
     });
   } catch (error) {
     res.status(HttpStatus.BAD_REQUEST).json({
@@ -20,7 +19,7 @@ export const addCustomerDetails = async (req, res) => {
 
 export const getCustomerDetails = async (req, res) => {
   try {
-    const data = await CustomerService.getCustomerDetails(req.userId,req.body);
+    const data = await CustomerService.getCustomerDetails(req.userId);
     res.status(HttpStatus.OK).json({
       success: true,
       message: 'Customer details fetched successfully',

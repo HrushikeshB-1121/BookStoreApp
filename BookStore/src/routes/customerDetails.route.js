@@ -4,8 +4,8 @@ import * as CustomerController from '../controllers/customerDetails.controller';
 
 const router = express.Router();
 
-router.post('',userLoginAuth , CustomerController.addCustomerDetails);
-
 router.get('',userLoginAuth , CustomerController.getCustomerDetails);
+
+router.post('',userLoginAuth , CustomerController.addCustomerDetails);
 
 export default router;
