@@ -1,23 +1,22 @@
+/* eslint-disable prettier/prettier */
 import express from 'express';
-import * as userController from '../controllers/user.controller';
-import { newUserValidator } from '../validators/user.validator';
+import * as UserController from '../controllers/user.controller';
+import { loginValidator, newUserValidator } from '../validators/user.validator';
 import { userAuth } from '../middlewares/auth.middleware';
+import { userRole, adminRole } from '../middlewares/role.middleware';
 
 const router = express.Router();
 
-//route to get all users
-router.get('', userController.getAllUsers);
+/* User */
+router.post('/', newUserValidator, userRole, UserController.newUser);
 
-//route to create a new user
-router.post('', newUserValidator, userController.newUser);
+/* Verify Token */
+router.post('/verification', userAuth, UserController.registerUser);
 
-//route to get a single user by their user id
-router.get('/:_id', userAuth, userController.getUser);
+/* Login */
+router.post('/login', loginValidator, UserController.login);
 
-//route to update a single user by their user id
-router.put('/:_id', userController.updateUser);
-
-//route to delete a single user by their user id
-router.delete('/:_id', userController.deleteUser);
+/* Admin */
+router.post('/admin', newUserValidator, adminRole, UserController.newUser);
 
 export default router;

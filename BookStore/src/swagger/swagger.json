@@ -1,0 +1,713 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Book-Store",
+    "description": "This is a Book Store Application where you can buy books at a discounted price"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "User",
+      "description": "This is API for user"
+    },
+    {
+      "name": "Admin",
+      "description": "This is API for Admin"
+    },
+    {
+      "name": "Customer",
+      "description": "This is API for Customer"
+    },
+    {
+      "name": "Book",
+      "description": "This is API for Book"
+    },
+    {
+      "name": "Cart",
+      "description": "This is API for Cart"
+    },
+    {
+      "name": "WishList",
+      "description": "This is API for Wishlist"
+    },
+    {
+      "name": "Order",
+      "description": "This is API for Order"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Customer can register here",
+        "description": "Register user...",
+        "requestBody": {
+          "description": "Register user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/verification": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "User verification for email",
+        "description": "Verify user email...",
+        "responses": {
+          "201": {
+            "description": "User verified successfully",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/admin": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Registration for admin",
+        "description": "Register admin...",
+        "requestBody": {
+          "description": "Register admin",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Admin created successfully",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "User can login here",
+        "description": "User Login...",
+        "requestBody": {
+          "description": "User Login",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/books/":{
+      "get": {
+        "tags":[
+          "Book"
+        ],
+        "summary":"Get all books",
+        "description": "Getting Books...",
+        "responses": {
+          "200": {
+            "description": "Books fetched successfully",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {}
+          }
+        },
+        "security":[
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/books/{_id}": {
+        "get": {
+          "tags": [
+            "Book"
+          ],
+          "summary": "Get a single book by it's id",
+          "parameters": [
+            {
+              "name": "_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "book fetched successfully",
+              "content": {}
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {}
+            },
+            "500": {
+              "description": "Internal server error",
+              "content": {}
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        },
+        "delete": {
+          "tags": [
+            "Book"
+          ],
+          "summary": "Delete a single book by it's id",
+          "parameters": [
+            {
+              "name": "_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "book deleted successfully",
+              "content": {}
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {}
+            },
+            "500": {
+              "description": "Internal server error",
+              "content": {}
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        },
+        "put": {
+          "tags": [
+            "Book"
+          ],
+          "summary": "Update a single book by it's id",
+          "parameters": [
+            {
+              "name": "_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "update book",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "book updated successfully",
+              "content": {}
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {}
+            },
+            "500": {
+              "description": "Internal server error",
+              "content": {}
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+    },
+    "/carts": {
+        "get": {
+        "tags":[
+          "Cart"
+        ],
+        "summary":"Get cart",
+        "description": "Getting Cart...",
+        "responses": {
+          "200": {
+            "description": "Cart fetched successfully",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {}
+          }
+        },
+        "security":[
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/carts/{_id}": {
+        "put": {
+        "tags":[
+          "Cart"
+        ],
+        "summary":"Add book to cart",
+        "description": "Adding Books to Cart...",
+        "parameters": [
+            {
+              "name": "_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book added to cart successfully",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {}
+          }
+        },
+        "security":[
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags":[
+          "Cart"
+        ],
+        "summary":"Remove book from cart",
+        "description": "Remove Book from Cart...",
+        "parameters": [
+            {
+              "name": "_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book removed from cart successfully",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {}
+          }
+        },
+        "security":[
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/wishlist": {
+        "get": {
+        "tags":[
+          "WishList"
+        ],
+        "summary":"Get wishLists",
+        "description": "Getting wishList...",
+        "responses": {
+          "200": {
+            "description": "WishList fetched successfully",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {}
+          }
+        },
+        "security":[
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/wishlist/{_id}": {
+        "post": {
+      "tags":[
+        "WishList"
+      ],
+      "summary":"Add book to WishList",
+      "description": "Adding Books to WishList...",
+      "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+      ],
+      "responses": {
+        "200": {
+          "description": "Book added to WishLists successfully",
+          "content": {}
+        },
+        "400": {
+          "description": "Bad Request",
+          "content": {}
+        },
+        "500": {
+          "description": "Internal server error",
+          "content": {}
+        }
+      },
+      "security":[
+        {
+          "bearerAuth": []
+        }
+      ]
+      },
+        "delete": {
+        "tags":[
+          "WishList"
+        ],
+        "summary":"remove book from WishList",
+        "description": "remove Book from WishList...",
+        "parameters": [
+            {
+              "name": "_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book removed from WishList successfully",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {}
+          }
+        },
+        "security":[
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/orders": {
+        "post": {
+        "tags":[
+          "Order"
+        ],
+        "summary":"Get Orders",
+        "description": "Getting orders...",
+        "responses": {
+          "200": {
+            "description": "Orders fetched successfully",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {}
+          }
+        },
+        "security":[
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/customerDetails": {
+        "get": {
+        "tags":[
+          "CustomerDetails"
+        ],
+        "summary":"Get customerDetails",
+        "description": "Getting customerDetails...",
+        "responses": {
+          "200": {
+            "description": "CustomerDetails saved successfully",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {}
+          }
+        },
+        "security":[
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+        "post": {
+        "tags":[
+          "CustomerDetails"
+        ],
+        "summary":"Get customerDetails",
+        "description": "Getting customerDetails...",
+        "requestBody": {
+          "description": "Set customerDetails",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerDetails"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "CustomerDetails saved successfully",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {}
+          }
+        },
+        "security":[
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          }
+        }
+      },
+      "UserLogin": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Book": {
+        "type": "object",
+        "properties": {
+          "bookName": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "string"
+          },
+          "admin_user_id": {
+            "type": "string"
+          },
+          "discountPrice": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "string"
+          }
+        }
+      },
+      "CustomerDetails": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string"
+          },
+          "address":{
+            "type": "object",
+            "properties": {
+            "street": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "postalCode": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              }
+            }
+          },
+          "contact": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
