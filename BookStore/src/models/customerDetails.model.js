@@ -9,8 +9,18 @@ const customerDetailsSchema = new Schema(
         type: String,
         required: true
       },
-      address:{
-        street: {
+      address:[
+        {
+          type: {
+            type: String,
+            enum: ['home', 'office', 'other'],
+            required: true
+          },
+          addressLine: {
+            type: String,
+            required: true
+          },
+          street: {
             type: String,
             required: true
           },
@@ -30,7 +40,7 @@ const customerDetailsSchema = new Schema(
             type: String,
             required: true
           }
-      },
+        }],
       contact: {
         type: String,
         required: true
