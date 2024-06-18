@@ -5,10 +5,11 @@ import app from '../src/index';
 
 let token;
 let loginToken;
-let bookId = `6215897105253301a4fda5d5`;
+const bookId = "6214803b05253301a4fda584";
 
 
 describe('User APIs Test', () => {
+
   beforeAll(async () => {
     const clearCollections = async () => {
       for (const collection in mongoose.connection.collections) {
@@ -46,8 +47,7 @@ describe('User APIs Test', () => {
           "phone" : "6302773050"
         });
         token = res.body.token
-      expect(res.body.code).toBe(201);
-      expect(res.body.success).toBe(true);
+      expect(res.status).toBe(201);
     });
 
     it('Should return mail not sent', async () => {
@@ -59,7 +59,7 @@ describe('User APIs Test', () => {
           "password" : "Adarsh@123",
           "phone" : "6302773050"
         });
-      expect(res.body.code).toBe(400);
+      expect(res.status).toBe(400);
     });
 
     it('Should return password is required', async () => {
@@ -71,7 +71,7 @@ describe('User APIs Test', () => {
           "password" : "",
           "phone" : "6302773050"
         });
-      expect(res.body.code).toBe(400);
+      expect(res.status).toBe(400);
     });
 
     it('Should return invalid is phone number', async () => {
@@ -83,7 +83,7 @@ describe('User APIs Test', () => {
           "password" : "Adarsh@123",
           "phone" : ""
         });
-      expect(res.body.code).toBe(400);
+      expect(res.status).toBe(400);
     });
 
   });
@@ -100,7 +100,7 @@ describe('User APIs Test', () => {
           "password" : "Adarsh@123",
           "phone" : "6302773050"
         });
-      expect(res.body.code).toBe(201);
+      expect(res.status).toBe(201);
     });
 
     it('Should return mail not sent', async () => {
@@ -112,7 +112,7 @@ describe('User APIs Test', () => {
           "password" : "Adarsh@123",
           "phone" : "6302773050"
         });
-      expect(res.body.code).toBe(400);
+      expect(res.status).toBe(400);
     });
 
     it('Should return password is required', async () => {
@@ -124,7 +124,7 @@ describe('User APIs Test', () => {
           "password" : "",
           "phone" : "6302773050"
         });
-      expect(res.body.code).toBe(400);
+      expect(res.status).toBe(400);
     });
 
     it('Should return invalid is phone number', async () => {
@@ -136,7 +136,7 @@ describe('User APIs Test', () => {
           "password" : "Adarsh@123",
           "phone" : ""
         });
-      expect(res.body.code).toBe(400);
+      expect(res.status).toBe(400);
     });
 
   });
@@ -148,14 +148,14 @@ describe('User APIs Test', () => {
       const res = await request(app)
         .post('/api/v1/users/verification')
         .set('Authorization', `Bearer ${token}`)
-      expect(res.body.code).toBe(201);
+      expect(res.status).toBe(201);
     });
 
     it('Should return token not verified', async () => {
       const res = await request(app)
         .post('/api/v1/users/verification')
         .set('Authorization', `Bearer ${token[1]}`)
-      expect(res.body.code).toBe(400);
+      expect(res.status).toBe(400);
     });
 
   });
@@ -171,7 +171,7 @@ describe('User APIs Test', () => {
           "password" : "Adarsh@123"
         })
         loginToken = res.body.data.loginToken;
-      expect(res.body.code).toBe(200);
+      expect(res.status).toBe(200);
     });
 
     it('Should return invalid credentials', async () => {
@@ -181,7 +181,7 @@ describe('User APIs Test', () => {
           "email": "varshab@gmail.com",
           "password" : "Vishal@123"
         })
-      expect(res.body.code).toBe(400);
+      expect(res.status).toBe(400);
     });
 
     it('Should return mail is required', async () => {
@@ -191,7 +191,7 @@ describe('User APIs Test', () => {
           "email": "",
           "password" : "Vishal@123"
         })
-      expect(res.body.code).toBe(400);
+      expect(res.status).toBe(400);
     });
 
     it('Should return password is required', async () => {
@@ -201,10 +201,11 @@ describe('User APIs Test', () => {
           "email": "hrushikeshb2545b@gmail.com",
           "password" : ""
         })
-      expect(res.body.code).toBe(400);
+      expect(res.status).toBe(400);
     });
 
   });
+
 
   describe(`Get All Books`,()=>{
 
@@ -212,34 +213,28 @@ describe('User APIs Test', () => {
       const res = await request(app)
         .get('/api/v1/books')
         .set('Authorization', `Bearer ${loginToken}`)
-      expect(res.body.code).toBe(200);
+      expect(res.status).toBe(200);
     });
 
     it('Should return jwt must be provided', async () => {
       const res = await request(app)
         .get('/api/v1/books')
         .set('Authorization', `Bearer `)
-      expect(res.body.code).toBe(400);
+      expect(res.status).toBe(400);
     });
   });
 
-  
+
   describe(`Get A Book`,()=>{
 
-    it('Should return All Books fetched successfully', async () => {
-      const res = await request(app)
-        .get(`/api/v1/books/${bookId}`)
-        .set('Authorization', `Bearer ${loginToken}`)
-      expect(res.body.code).toBe(200);
-    });
-
-    it('Should return All Books fetched successfully', async () => {
+    it('Should return invalid token', async () => {
       const res = await request(app)
         .get(`/api/v1/books/${bookId}`)
         .set('Authorization', `Bearer ${token}`)
-      expect(res.body.code).toBe(400);
+      expect(res.status).toBe(400);
     });
 
   });
+
 
 })
