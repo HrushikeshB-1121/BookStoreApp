@@ -4,13 +4,13 @@ import { checkRole,userLoginAuth } from '../middlewares/auth.middleware';
 
 const router = express.Router();
 
-
+/* User and Admin - Products */
 router.get('', userLoginAuth, BooksController.getAllbooks);
 
 
 router.get('/:_id',userLoginAuth,BooksController.getBookById);
 
-
+/* Admin - Products */
 router.put('/:_id',userLoginAuth, checkRole, BooksController.updateBookById);
 
 

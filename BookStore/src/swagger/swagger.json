@@ -97,7 +97,7 @@
         },
         "security": [
           {
-            "BearerAuth": []
+            "bearerAuth": []
           }
         ]
       }
@@ -676,24 +676,35 @@
           "fullName": {
             "type": "string"
           },
-          "address":{
-            "type": "object",
-            "properties": {
-            "street": {
-                "type": "string"
+          "address": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["home", "office", "other"]
+                },
+                "addressLine": {
+                  "type": "string"
+                },
+                "street": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "state": {
+                  "type": "string"
+                },
+                "postalCode": {
+                  "type": "string"
+                },
+                "country": {
+                  "type": "string"
+                }
               },
-              "city": {
-                "type": "string"
-              },
-              "state": {
-                "type": "string"
-              },
-              "postalCode": {
-                "type": "string"
-              },
-              "country": {
-                "type": "string"
-              }
+              "required": ["type", "addressLine", "street", "city", "state", "postalCode", "country"]
             }
           },
           "contact": {
