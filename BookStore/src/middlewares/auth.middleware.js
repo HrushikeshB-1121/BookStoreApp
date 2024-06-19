@@ -2,6 +2,8 @@ import HttpStatus from 'http-status-codes';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv'
 dotenv.config()
+const passport = require('passport');
+import User from '../models/user.model';
 const key = process.env.SECRET_KEY;
 const loginkey = process.env.LOGIN_SECRET_KEY;
 
@@ -65,3 +67,21 @@ export const checkRole = async (req, res, next) => {
     })
   }
 }
+
+export const googleAuth = async (req, res) => {
+  passport.authenticate('google', async (err, user) => {
+    if (err) {
+      throw new Error('Authentication failed');
+    }
+    if (!user) {
+      throw new Error('User not authenticated');
+    }
+    let email = user.email;
+    const userdb = await User.findOne({ email })
+    if (userdb === null) {
+      throw new Error('Invalid email');
+    }
+    const token = jwt.sign({ userId: userdb._id , role: userdb.role}, loginkey, { expiresIn: '1h' });
+    return res.json({ email, token });
+  })(req, res);
+};

@@ -6,10 +6,6 @@ export const getOrderDetails = async (_id) => {
     const cart = await Cart.findOne({ cartBy: _id });
 
     let order = await Order.findOne({ orderBy: _id });
-    if(order===null){
-      console.log("hii");
-      throw new Error('order not found')
-    }
 
     if (!order) {
       order = await Order.create({

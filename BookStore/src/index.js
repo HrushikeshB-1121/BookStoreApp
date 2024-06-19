@@ -12,17 +12,21 @@ import {
   genericErrorHandler,
   notFound
 } from './middlewares/error.middleware';
+import morgan from 'morgan';
 import logger, { logStream } from './config/logger';
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger/swagger.json');
-import morgan from 'morgan';
-
+const passport = require('./config/passport');
 const app = express();
 const host = process.env.APP_HOST;
 const port = process.env.APP_PORT;
 const api_version = process.env.API_VERSION;
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// Initialize Passport and restore authentication state, if any, from the session
+app.use(passport.initialize());
+
 app.use(cors());
 app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
